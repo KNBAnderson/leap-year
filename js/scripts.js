@@ -1,5 +1,5 @@
 // business logic
-var leapYear = function(year) {
+function isLeapYear(year) {
   if ((year % 4 === 0) && (year % 100 !== 0) || (year % 400 === 0)) {
     return true;
   } else {
@@ -12,16 +12,22 @@ $(document).ready(function() {
   $("form#leap-year").submit(function(event) {
     event.preventDefault();
     var year = parseInt($("input#year").val());
-    var result = leapYear(year);
+    var result = isLeapYear(year);
 
     $(".year").text(year);
 
-    if (!result) {                 // same as writing if (result === false)
+    if (isNaN(year)){
+      $(".notANumber").show();
+      $(".number").hide();
+    } else if (!result) {
+      $(".number").show();
+      $(".notANumber").hide();                // same as writing if (result === false)
       $(".not").text("not");
     } else {
+      $(".number").show();
+      $(".notANumber").hide();
       $(".not").text("");
     }
-
     $("#result").show();
   });
 });
